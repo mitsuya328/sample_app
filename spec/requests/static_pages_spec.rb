@@ -2,27 +2,22 @@ require 'rails_helper'
 
 describe 'StaticPagesController', type: :request do
   it 'should get root' do
-    get root_url
-    expect(response).to have_http_status(:success)
-  end
-
-  it 'should get home' do
-    get static_pages_home_url
+    get root_path
     expect(response).to have_http_status(:success)
   end
 
   it 'should get help' do
-    get static_pages_help_url
+    get help_path
     expect(response).to have_http_status(:success)
   end
 
   it 'should get about' do
-    get static_pages_about_url
+    get about_path
     expect(response).to have_http_status(:success)
   end
 
   it 'should get contact' do
-    get static_pages_contact_url
+    get contact_path
     expect(response).to have_http_status(:success)
   end
 end
