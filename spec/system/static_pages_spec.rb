@@ -1,24 +1,27 @@
-require 'rails_helper'
+require 'spec_helper'
 
-describe 'StaticPagesController', type: :system do
+describe "StaticPages" do
 
-  it 'should get home' do
-    visit static_pages_home_url
-    expect(page).to have_title "Home | Ruby on Rails Tutorial Sample App"
+  subject { page }
+
+  describe "Home page" do
+    before { visit root_path }
+    it { should have_title 'Ruby on Rails Tutorial Sample App' }
+    it { should_not have_title 'Home' }
   end
 
-  it 'should get help' do
-    visit static_pages_help_url
-    expect(page).to have_title "Help | Ruby on Rails Tutorial Sample App"
+  describe "Help page" do
+    before { visit static_pages_help_url }
+    it { should have_title 'Help | Ruby on Rails Tutorial Sample App' }
   end
 
-  it 'should get about' do
-    visit static_pages_about_url
-    expect(page).to have_title "About | Ruby on Rails Tutorial Sample App"
+  describe "About page" do
+    before { visit static_pages_about_url }
+    it { should have_title 'About | Ruby on Rails Tutorial Sample App' }
   end
 
-  it 'should get contact' do
-    visit static_pages_contact_url
-    expect(page).to have_title "Contact | Ruby on Rails Tutorial Sample App"
+  describe "Contact page" do
+    before { visit static_pages_contact_url }
+    it { should have_title 'Contact | Ruby on Rails Tutorial Sample App' }
   end
 end
