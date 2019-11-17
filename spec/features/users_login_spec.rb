@@ -5,7 +5,7 @@ RSpec.feature "UsersLogin", type: :feature do
       @user = FactoryBot.create(:user)
   end
 
-  it 'with valid information' do
+  it 'with valid information followed by logout' do
     visit login_path
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: @user.password
@@ -16,7 +16,7 @@ RSpec.feature "UsersLogin", type: :feature do
     expect(page).to have_link href: user_path(@user)
     click_link 'Account'
     click_link 'Log out'
-    expect(page).not_to have_content @user.name
+    expect(page).to have_content 'Sign up now!'
     expect(page).to have_link href: login_path
     expect(page).not_to have_link href: logout_path
     expect(page).not_to have_link href: user_path(@user)
