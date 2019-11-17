@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "SiteLayoutTest" do
+RSpec.feature "SiteLayout", type: :feature do
 
   subject { page }
 
