@@ -24,6 +24,7 @@ RSpec.feature "Signup", type: :feature do
       fill_in "Confirmation", with: "password"
       expect { click_button "Create my account" }.to change(User, :count).by(1)
       expect(page).to have_selector '.alert'
+      expect(page).to have_content "Example User"
     end
   end
 end
