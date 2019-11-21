@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "UsersEdit", type: :request do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:michael) }
 
   it "with invalid information" do
+    log_in_as(user)
     get edit_user_path(user)
     expect(response).to render_template 'users/edit'
     patch user_path(user), params: { user: { name:  "",
@@ -14,6 +15,7 @@ RSpec.describe "UsersEdit", type: :request do
   end
 
   it "with valid information" do
+    log_in_as(user)
     get edit_user_path(user)
     expect(response).to render_template 'users/edit'
     name  = "Foo Bar"

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "UsersLogins", type: :request do
   before do
-      @user = FactoryBot.create(:user)
+      @user = FactoryBot.create(:michael)
   end
 
   it "with invalid information" do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "UsersLogin", type: :feature do
   before do
-      @user = FactoryBot.create(:user)
+      @user = FactoryBot.create(:michael)
   end
 
   it 'with valid information followed by logout' do

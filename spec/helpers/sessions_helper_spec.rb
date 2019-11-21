@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "SessionsHelper" do
   before do
-    @user = FactoryBot.create(:user)
+    @user = FactoryBot.create(:michael)
     remember(@user)
   end
 
