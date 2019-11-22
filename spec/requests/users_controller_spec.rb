@@ -4,6 +4,13 @@ describe 'UsersController', type: :request do
   let(:user) { FactoryBot.create(:michael) }
   let(:other_user) { FactoryBot.create(:archer) }
 
+  context "when not logged in" do
+    it "should redirect index" do
+      get users_path
+      expect(response).to redirect_to login_url
+    end
+  end
+
   it 'should get new' do
     get signup_path
     expect(response).to have_http_status(:success)
