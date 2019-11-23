@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 describe 'UsersController', type: :request do
-  let(:user) { FactoryBot.create(:michael) }
-  let(:other_user) { FactoryBot.create(:archer) }
+  let!(:user) { FactoryBot.create(:michael) }
+  let!(:other_user) { FactoryBot.create(:archer) }
+  before(:all) { 30.times { FactoryBot.create(:user) } }
+  after(:all)  { User.delete_all }
 
   context "when not logged in" do
     it "should redirect index" do
@@ -29,6 +31,21 @@ describe 'UsersController', type: :request do
       expect(flash).not_to be_empty
       expect(response).to redirect_to login_url
     end
+
+    it "should redirect destroy" do
+      expect{ delete user_path(user) }.not_to change{ User.count }
+      expect(response).to redirect_to login_url
+    end
+  end
+
+  it "should not allow admin attribute to be edited via the web" do
+    log_in_as(other_user)
+    expect(other_user.admin).to be_falsey
+    patch user_path(other_user), params: {
+                                    user: { password:              other_user.password,
+                                            password_confirmation: other_user.password,
+                                            admin: true } }
+    expect(other_user.reload.admin).to be_falsey
   end
 
   context "when logged in as wrong user" do
@@ -43,6 +60,11 @@ describe 'UsersController', type: :request do
       patch user_path(user), params: { user: { name: user.name,
                                               email: user.email } }
       expect(flash).to be_empty
+      expect(response).to redirect_to root_url
+    end
+
+    it "should redirect destroy" do
+      expect{ delete user_path(user) }.not_to change{ User.count }
       expect(response).to redirect_to root_url
     end
   end

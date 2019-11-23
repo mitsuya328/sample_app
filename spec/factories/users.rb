@@ -3,6 +3,7 @@ FactoryBot.define do
     name { 'Michael Example' }
     email { 'michael@example.com' }
     password { 'password' }
+    admin { true }
   end
 
   factory :archer, class: User do
