@@ -19,8 +19,6 @@ RSpec.describe "UsersIndex", type: :system do
         expect(page).to have_link 'delete', href: user_path(user)
       end
     end
-    #wait = Selenium::WebDriver::Wait.new ignore: Selenium::WebDriver::Error::NoAlertPresentError
-    #alert = wait.until { page.driver.browser.switch_to.alert }
     expect do
       click_link 'delete',match: :first
       page.accept_confirm

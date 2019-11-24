@@ -18,4 +18,9 @@ FactoryBot.define do
     content { "Writing a short test" }
     created_at { Time.zone.now }
   end
+
+  factory :post, class: Micropost do
+    content { "test posts" }
+    created_at { 42.days.ago }
+  end
 end
