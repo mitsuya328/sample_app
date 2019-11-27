@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'faker'
+gem 'carrierwave'
+gem 'mini_magick'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
@@ -67,6 +69,10 @@ group :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rails-controller-testing'
   #gem 'poltergeist'
+end
+
+group :production do
+  gem 'fog'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

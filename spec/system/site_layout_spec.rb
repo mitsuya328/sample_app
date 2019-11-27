@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.feature "SiteLayout", type: :system do
+RSpec.describe "SiteLayout", type: :system do
 
   subject { page }
   let(:user) { FactoryBot.create(:michael) }
