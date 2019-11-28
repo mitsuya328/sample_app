@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Signup", type: :system do
+RSpec.describe "Signup", type: :system do
   context "with invalid information" do
     it "does not add a user" do
       visit signup_path

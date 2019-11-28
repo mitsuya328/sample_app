@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.feature "StaticPages", type: :system do
+RSpec.describe "StaticPages", type: :system do
 
   subject { page }
 

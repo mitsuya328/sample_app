@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "MicropostsInterface", type: :request do
   let(:user){ FactoryBot.create(:michael) }
   let(:other_user){ FactoryBot.create(:archer) }
+  let(:image_path) { File.join(Rails.root, 'spec/fixtures/rails.png') }
+  let(:image) { Rack::Test::UploadedFile.new(image_path) }
 
   before do
     50.times { FactoryBot.create(:post, user: user) }
@@ -20,10 +22,13 @@ RSpec.describe "MicropostsInterface", type: :request do
     # 有効な送信
     content = "This micropost really ties the room together"
     expect{
-      post microposts_path, params:{ micropost: { content: content } }
+      post microposts_path, params:{ micropost:
+        { content: content,
+          picture: image } }
     }.to change{ Micropost.count }.by(1)
     expect(response).to redirect_to root_url
-    expect(Micropost.find_by(content: content)).not_to eq nil
+    expect(assigns(:micropost).picture?).to be_truthy
+    expect(Micropost.find_by(content: content)).to be_truthy
     # 投稿を削除する
     first_micropost = user.microposts.paginate(page: 1).first
     expect{
