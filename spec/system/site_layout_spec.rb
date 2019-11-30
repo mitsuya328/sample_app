@@ -28,6 +28,8 @@ RSpec.describe "SiteLayout", type: :system do
     it { should have_link href: user_path(user), visible: false }
     it { should have_link href: edit_user_path(user), visible: false }
     it { should have_link href: logout_path, visible: false }
+    it { should have_link user.following.count, href: following_user_path(user) }
+    it { should have_link user.followers.count, href: followers_user_path(user) }
   end
 
   describe "signup page" do

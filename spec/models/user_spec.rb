@@ -81,4 +81,31 @@ RSpec.describe User, type: :model do
     @user.microposts.create!(content: "Lorem ipsum" )
     expect{ @user.destroy }.to change{ Micropost.count }.by(-1)
   end
+
+  it "should follow and unfollow a user" do
+    michael = FactoryBot.create(:michael)
+    archer = FactoryBot.create(:archer)
+    expect(michael.following?(archer)).to be_falsey
+    michael.follow(archer)
+    expect(michael.following?(archer)).to be_truthy
+    expect(archer.followers.include?(michael)).to be_truthy
+    michael.unfollow(archer)
+    expect(michael.following?(archer)).to be_falsey
+  end
+
+  it "feed should have the right posts" do
+    michael = FactoryBot.create(:michael)
+    post_self = FactoryBot.create(:orange, user: michael)
+    archer = FactoryBot.create(:archer)
+    post_following = FactoryBot.create(:tau_manifesto, user: archer)
+    lana = FactoryBot.create(:lana)
+    post_unfollowed = FactoryBot.create(:cat_video, user: lana)
+    michael.follow(archer)
+    # フォローしているユーザーの投稿を確認
+    expect(michael.feed).to include(post_following)
+    # 自分自身の投稿を確認
+    expect(michael.feed).to include(post_self)
+    # フォローしていないユーザーの投稿を確認
+    expect(michael.feed).not_to include(post_unfollowed)
+  end
 end

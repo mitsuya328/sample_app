@@ -36,6 +36,16 @@ describe 'UsersController', type: :request do
       expect{ delete user_path(user) }.not_to change{ User.count }
       expect(response).to redirect_to login_url
     end
+
+    it "should redirect following" do
+      get following_user_path(user)
+      expect(response).to redirect_to login_url
+    end
+
+    it "should redirect followers" do
+      get followers_user_path(user)
+      expect(response).to redirect_to login_url
+    end
   end
 
   it "should not allow admin attribute to be edited via the web" do
